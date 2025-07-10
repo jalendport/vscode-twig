@@ -1,486 +1,141 @@
 {
-  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-  "name": "Twig",
-  "patterns": [
-    {
-      "begin": "\\{\\#",
-      "captures": {
-        "0": {
-          "name": "punctuation.definition.tag.comment.twig"
-        }
-      },
-      "comment": "{# Comment Block #}",
-      "end": "\\#\\}",
-      "name": "comment.block.twig"
-    },
-    {
-      "begin": "\\{\\%",
-      "captures": {
-        "0": {
-          "name": "punctuation.definition.tag.expression.twig"
-        }
-      },
-      "comment": "{% Expression / Action Tags %}",
-      "end": "\\%\\}",
-      "name": "meta.tag.expression.twig",
-      "patterns": [
-        {
-          "include": "#twig-tags"
-        },
-        {
-          "include": "#twig-filters"
-        },
-        {
-          "include": "#twig-functions"
-        },
-        {
-          "include": "#twig-constants-language"
-        },
-        {
-          "include": "#twig-constants-numeric"
-        },
-        {
-          "include": "#twig-operators-comparison"
-        },
-        {
-          "include": "#twig-operators-logical"
-        },
-        {
-          "include": "#twig-operators-bitwise"
-        },
-        {
-          "include": "#twig-operators-assignment"
-        },
-        {
-          "include": "#twig-operators-arithmetic"
-        },
-        {
-          "include": "#string-single-quoted"
-        },
-        {
-          "include": "#string-double-quoted"
-        },
-        {
-          "include": "#twig-parameters"
-        },
-        {
-          "include": "#twig-tests"
-        },
-        {
-          "include": "#twig-macro"
-        },
-        {
-          "include": "#twig-arrays-hashes"
-        },
-        {
-          "include": "#twig-parentheses"
-        }
-      ]
-    },
-    {
-      "begin": "\\{\\{\\s",
-      "captures": {
-        "0": {
-          "name": "punctuation.definition.tag.output.twig"
-        }
-      },
-      "comment": "{{ Output / Variable Tags }}",
-      "end": "\\s\\}\\}",
-      "name": "meta.tag.output.twig",
-      "patterns": [
-        {
-          "include": "#twig-tags"
-        },
-        {
-          "include": "#twig-filters"
-        },
-        {
-          "include": "#twig-functions"
-        },
-        {
-          "include": "#twig-constants-language"
-        },
-        {
-          "include": "#twig-constants-numeric"
-        },
-        {
-          "include": "#twig-operators-comparison"
-        },
-        {
-          "include": "#twig-operators-logical"
-        },
-        {
-          "include": "#twig-operators-bitwise"
-        },
-        {
-          "include": "#twig-operators-assignment"
-        },
-        {
-          "include": "#twig-operators-arithmetic"
-        },
-        {
-          "include": "#string-single-quoted"
-        },
-        {
-          "include": "#string-double-quoted"
-        },
-        {
-          "include": "#twig-parameters"
-        },
-        {
-          "include": "#twig-tests"
-        },
-        {
-          "include": "#twig-arrays-hashes"
-        },
-        {
-          "include": "#twig-parentheses"
-        }
-      ]
-    },
-    {
-      "include": "text.html.basic"
-    },
-    {
-      "begin": "(?ix)(?<=\\{\\%\\scss\\s\\%\\})",
-      "comment": "Add CSS support to certain tags",
-      "end": "(?ix)(?=\\{\\%\\sendcss\\s\\%\\})",
-      "name": "source.css.embedded.twig",
-      "patterns": [
-        {
-          "include": "source.css"
-        }
-      ]
-    },
-    {
-      "begin": "(?ix)(?<=\\{\\%\\sjs\\s\\%\\})",
-      "comment": "Add JS support to certain tags",
-      "end": "(?ix)(?=\\{\\%\\sendjs\\s\\%\\})",
-      "name": "source.js.embedded.twig",
-      "patterns": [
-        {
-          "include": "source.js"
-        }
-      ]
-    }
-  ],
-  "repository": {
-    "entities": {
-      "patterns": [
-        {
-          "captures": {
-            "1": {
-              "name": "punctuation.definition.entity.html"
-            },
-            "3": {
-              "name": "punctuation.definition.entity.html"
-            }
-          },
-          "comment": "HTML Entities",
-          "match": "(&)([a-zA-Z0-9]+|#[0-9]+|#x[0-9a-fA-F]+)(;)",
-          "name": "constant.character.entity.html"
-        },
-        {
-          "match": "&",
-          "name": "invalid.illegal.bad-ampersand.html"
-        }
-      ]
-    },
-    "string-double-quoted": {
-      "begin": "\"",
-      "beginCaptures": {
-        "0": {
-          "name": "punctuation.definition.string.begin.twig"
-        }
-      },
-      "comment": "Double Quoted String. The \"contentName\" value below is just to allow the usage of “select scope” to select the string contents first, then the string with quotes",
-      "contentName": "meta.string-contents.quoted.double.twig",
-      "end": "\"",
-      "endCaptures": {
-        "0": {
-          "name": "punctuation.definition.string.end.twig"
-        }
-      },
-      "name": "string.quoted.double.twig",
-      "patterns": [
-        {
-          "include": "#entities"
-        }
-      ]
-    },
-    "string-single-quoted": {
-      "begin": "'",
-      "beginCaptures": {
-        "0": {
-          "name": "punctuation.definition.string.begin.twig"
-        }
-      },
-      "comment": "Single Quoted String. The \"contentName\" value below is just to allow the usage of “select scope” to select the string contents first, then the string with quotes",
-      "contentName": "meta.string-contents.quoted.single.php",
-      "end": "'",
-      "endCaptures": {
-        "0": {
-          "name": "punctuation.definition.string.end.twig"
-        }
-      },
-      "name": "string.quoted.single.twig",
-      "patterns": [
-        {
-          "include": "#entities"
-        },
-        {
-          "include": "#string_escapes"
-        }
-      ]
-    },
-    "twig-arrays-hashes": {
-      "begin": "(\\{|\\[)",
-      "captures": {
-        "0": {
-          "name": "punctuation.section.twig"
-        }
-      },
-      "end": "(\\}|\\])",
-      "name": "punctuation.section.twig",
-      "patterns": [
-        {
-          "include": "#twig-tags"
-        },
-        {
-          "include": "#twig-filters"
-        },
-        {
-          "include": "#twig-functions"
-        },
-        {
-          "include": "#twig-constants-language"
-        },
-        {
-          "include": "#twig-constants-numeric"
-        },
-        {
-          "include": "#twig-operators-comparison"
-        },
-        {
-          "include": "#twig-operators-logical"
-        },
-        {
-          "include": "#twig-operators-bitwise"
-        },
-        {
-          "include": "#twig-operators-assignment"
-        },
-        {
-          "include": "#twig-operators-arithmetic"
-        },
-        {
-          "include": "#string-single-quoted"
-        },
-        {
-          "include": "#string-double-quoted"
-        },
-        {
-          "include": "#twig-parameters"
-        },
-        {
-          "include": "#twig-tests"
-        },
-        {
-          "include": "#twig-arrays-hashes"
-        },
-        {
-          "include": "#twig-parentheses"
-        },
-        {
-          "comment": "Highlight commas and colons within the array",
-          "match": ",|:",
-          "name": "punctuation.separator.twig"
-        },
-        {
-          "begin": "(?ix)(?<![-a-z])(?=[-a-z])\\w+\\s?(?=:)",
-          "comment": "Highlight they keys in our arrays/hashes",
-          "end": "$|(?![-a-z])",
-          "name": "support.type.argument.twig"
-        },
-        {
-          "begin": "(?ix)(?<![-0-9])(?=[-0-9])\\w+\\b",
-          "comment": "Highlight numbered keys as numbers",
-          "end": "$|(?![-0-9])",
-          "name": "constant.numeric.twig"
-        }
-      ]
-    },
-    "twig-constants-language": {
-      "comment": "Twig Constants: true|false|null|none",
-      "match": "(?ix)(?<=[\\s\\[\\(\\{:,])(?:true|false|null|none)(?=[\\s\\)\\]\\}\\,])",
-      "name": "constant.language.twig"
-    },
-    "twig-constants-numeric": {
-      "comment": "Digits.",
-      "match": "(?x)[[:digit:]]+",
-      "name": "constant.numeric.twig"
-    },
-    "twig-filters": {
-      "comment": "Twig Filters. We separate this repository pattern from twig-functions because people can add arbitrary filters in their plugins and we want to catch all of those.",
-      "match": "(?x)(\\s?(\\|)\\s?\\b((?!\\d)[\\w]+)\\b)|((?<=filter\\s)\\b([\\w]+)\\b)",
-      "name": "support.function.filters.twig"
-    },
-    "twig-functions": {
-      "begin": "(?x)(?<=[\\s\\[\\(\\{:,])((attribute|block|constant|cycle|date|divisible\\sby|divisibleby|dump|include|max|min|parent|random|range|same\\sas|source|template_from_string|abs|batch|capitalize|convert_encoding|date|date_modify|default|e(?:scape)?|first|format|join|(?:json|url)_encode|keys|last|length|lower|merge|nl2br|number_format|raw|replace|reverse|round|slice|sort|split|striptags|title|trim|upper|ciel|floor|getCsrfInput|getFootHtml|getHeadHtml|max|min|round|shuffle|url|currency|datetime|filesize|filter|group|indexOf|intersect|lcfirst|markdown|md|number|parseRefs|percentage|replace|translate|t|ucfirst|ucwords|without)|\\w+)(\\()",
-      "beginCaptures": {
-        "2": {
-          "name": "support.function.functions.twig"
-        },
-        "3": {
-          "name": "punctuation.section.twig"
-        }
-      },
-      "comment": "Twig functions with arguments. And an attempt to be a bit more broad and match any word that might be a custom function.",
-      "end": "(?x)(\\))",
-      "endCaptures": {
-        "1": {
-          "name": "punctuation.section.twig"
-        }
-      },
-      "name": "support.function.functions.twig",
-      "patterns": [
-        {
-          "include": "#twig-tags"
-        },
-        {
-          "include": "#twig-filters"
-        },
-        {
-          "include": "#twig-functions"
-        },
-        {
-          "include": "#twig-constants-language"
-        },
-        {
-          "include": "#twig-constants-numeric"
-        },
-        {
-          "include": "#twig-operators-comparison"
-        },
-        {
-          "include": "#twig-operators-logical"
-        },
-        {
-          "include": "#twig-operators-bitwise"
-        },
-        {
-          "include": "#twig-operators-assignment"
-        },
-        {
-          "include": "#twig-operators-arithmetic"
-        },
-        {
-          "include": "#string-single-quoted"
-        },
-        {
-          "include": "#string-double-quoted"
-        },
-        {
-          "include": "#twig-parameters"
-        },
-        {
-          "include": "#twig-tests"
-        },
-        {
-          "include": "#twig-arrays-hashes"
-        },
-        {
-          "include": "#twig-parentheses"
-        },
-        {
-          "comment": "Variables within function that do not match any of the above patterns.",
-          "match": "(?x)\\w\\.*",
-          "name": "support.other.variable"
-        }
-      ]
-    },
-    "twig-macro": {
-      "comment": "Macro Function name",
-      "match": "(?x)(?<=[^(?:end)]macro)\\s+(\\b.*)(?=\\s?\\()",
-      "name": "entity.name.function.twig"
-    },
-    "twig-operators-arithmetic": {
-      "comment": "Twig Operators",
-      "match": "(?x)(\\+|-|\\*|/|%|//|\\*\\*)",
-      "name": "keyword.operator.arithmetic.twig"
-    },
-    "twig-operators-assignment": {
-      "comment": "Twig Operators",
-      "match": "(?x)(=|~)",
-      "name": "keyword.operator.assignment.twig"
-    },
-    "twig-operators-bitwise": {
-      "comment": "Twig Operators",
-      "match": "(?x)(&|\\||\\^)",
-      "name": "keyword.operator.bitwise.twig"
-    },
-    "twig-operators-comparison": {
-      "comment": "Twig Operators",
-      "match": "(?x)(!=|==|<|<=|>|>=)|\\b(is|in|starts\\swith|ends\\swith)\\b",
-      "name": "keyword.operator.comparison.twig"
-    },
-    "twig-operators-logical": {
-      "comment": "Twig Operators",
-      "match": "(?x)\\b(not|or|and|\\?|:)\\b",
-      "name": "keyword.operator.logical.twig"
-    },
-    "twig-parameters": {
-      "comment": "Twig Tags - non primary tags that do not match if we have them in the twig-tags repository",
-      "match": "(?x)\\b(as|do|else|elseif|ignore\\smissing|only|with|with_context)\\b",
-      "name": "entity.name.tag.twig"
-    },
-    "twig-parentheses": {
-      "comment": "Parentheses.",
-      "match": "(?x)(\\(|\\))",
-      "name": "punctuation.section.twig"
-    },
-    "twig-tags": {
-      "comment": "Twig Tags opening and closing",
-      "match": "(?x)\\b(?:end)?((autoescape|cache|do|embed|extends|filter|flush|for|from|if|import|include|macro|sandbox|set|spaceless|use|verbatim|paginate|cache|case|default|exit|header|includecss|includeCss|includeCssFile|includehirescss|includeHiResCss|includejs|includeJs|includeJsFile|nav|paginate(?!\\.)|redirect|requireLogin|requirePermission|switch))(?!\\()\\b|(?<=\\{\\%\\s)block|endblock",
-      "name": "entity.name.tag.twig"
-    },
-    "twig-tests": {
-      "comment": "Twig Tests",
-      "match": "(?x)(?<=is\\s)(constant|defined|divisible\\s?by|empty|even|iterable|none|null|odd|same\\s?as)",
-      "name": "support.function.tests.twig"
-    },
-    "string_escapes": {
-      "patterns": [
-        {
-          "match": "\\\\u(?![A-Fa-f0-9]{4}|{[A-Fa-f0-9]+})[^'\"]*",
-          "name": "invalid.illegal.unicode-escape.twig"
-        },
-        {
-          "match": "\\\\u(?:[A-Fa-f0-9]{4}|({)([A-Fa-f0-9]+)(}))",
-          "name": "constant.character.escape.twig",
-          "captures": {
-            "1": {
-              "name": "punctuation.definition.unicode-escape.begin.bracket.curly.js"
-            },
-            "2": {
-              "patterns": [
-                {
-                  "match": "[A-Fa-f\\d]{7,}|(?!10)[A-Fa-f\\d]{6}",
-                  "name": "invalid.illegal.unicode-escape.twig"
-                }
-              ]
-            },
-            "3": {
-              "name": "punctuation.definition.unicode-escape.end.bracket.curly.js"
-            }
-          }
-        },
-        {
-          "match": "\\\\(x\\h{2}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)",
-          "name": "constant.character.escape.twig"
-        }
-      ]
-    }
-  },
-  "scopeName": "source.twig"
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Twig",
+	"scopeName": "text.html.twig",
+	"injections": {
+		"L:text.html.twig meta.tag - (comment.block.twig | meta.embedded.twig)": {
+			"patterns": [
+				{ "include": "#comment" },
+				{ "include": "#output" },
+				{ "include": "#execute" }
+			]
+		}
+	},
+	"patterns": [
+		{ "include": "#comment" },
+		{ "include": "#output" },
+		{ "include": "#execute" },
+		{ "include": "#css-embed" },
+		{ "include": "#js-embed" },
+		{ "include": "text.html.basic" }
+	],
+	"repository": {
+		"comment": {
+			"comment": "Matches Twig comment blocks: {# ... #}",
+			"name": "comment.block.twig",
+			"begin": "\\{\\#",
+			"end": "\\#\\}",
+			"patterns": []
+		},
+		"output": {
+			"comment": "Matches Twig output blocks: {{ ... }}",
+			"name": "meta.embedded.output.twig",
+			"begin": "\\{\\{",
+			"end": "\\}\\}",
+			"patterns": [
+				{ "include": "#filters" },
+				{ "include": "#functions" },
+				{ "include": "#tests" },
+				{ "include": "#expressions" }
+			]
+		},
+		"execute": {
+			"comment": "Matches Twig execute blocks: {% ... %}",
+			"name": "meta.embedded.execute.twig",
+			"begin": "\\{\\%",
+			"end": "\\%\\}",
+			"patterns": [
+				{ "include": "#tags" },
+				{ "include": "#filters" },
+				{ "include": "#functions" },
+				{ "include": "#tests" },
+				{ "include": "#expressions" }
+			]
+		},
+		"tags": {
+			"comment": "Matches Twig tags",
+			"patterns": [
+				{
+					"name": "keyword.control.twig",
+					"match": "\\G\\s*([a-zA-Z_][\\w]*)"
+				}
+			]
+		},
+		"filters": {
+			"comment": "Matches Twig filters",
+			"patterns": [
+				{
+					"name": "support.function.filters.twig",
+					"match": "(?<=\\|)\\s*([a-zA-Z_][\\w]*)|((?<=apply\\s)([a-zA-Z_][\\w]*))"
+				}
+			]
+		},
+		"functions": {
+			"comment": "Matches Twig functions",
+			"patterns": [
+				{
+					"name": "support.function.functions.twig",
+					"match": "\\b([a-zA-Z_][\\w]*)(?=\\()"
+				}
+			]
+		},
+		"tests": {
+			"comment": "Matches Twig tests",
+			"patterns": [
+				{
+					"name": "support.function.tests.twig",
+					"match": "(?<=is\\s)([a-zA-Z_][\\w]*(?:\\s+[a-zA-Z_][\\w]*)*)"
+				}
+			]
+		},
+		"expressions": {
+			"comment": "Matches Twig expressions (strings, numbers, operators, variables)",
+			"patterns": [
+				{ "include": "#single-strings" },
+				{ "include": "#double-strings" },
+				{ "include": "#numbers" },
+				{ "include": "#operators" },
+				{ "include": "#variables" }
+			]
+		},
+		"single-strings": {
+			"comment": "Matches single-quoted strings in Twig",
+			"name": "string.quoted.single.twig",
+			"begin": "'",
+			"end": "'",
+			"patterns": [
+				{
+					"name": "constant.character.escape.twig",
+					"match": "\\\\."
+				}
+			]
+		},
+		"double-strings": {
+			"comment": "Matches double-quoted strings in Twig",
+			"name": "string.quoted.double.twig",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.twig",
+					"match": "\\\\."
+				}
+			]
+		},
+		"numbers": {
+			"comment": "Matches numbers in Twig",
+			"name": "constant.numeric.twig",
+			"match": "\\b\\d+(?:\\.\\d+)?\\b"
+		},
+		"operators": {
+			"comment": "Matches operators in Twig",
+			"name": "keyword.operator.twig",
+			"match": "\\*\\*|\\/\\/|[+\\-*/%]|\\b(?:and|xor|or|not)\\b|\\=\\=|\\!\\=|\\<\\=|\\>\\=|\\<|\\>|\\<\\=\\>|\\b(?:has every|has some)\\b|\\b(?:in|not in|starts with|ends with|is|is not)\\b|\\||\\.\\.|\\~|\\.|\\?\\:|\\?\\?|\\?|\\:|\\.\\.\\.|\\=\\>"
+		},
+		"variables": {
+			"comment": "Matches variable names in Twig",
+			"name": "variable.other.twig",
+			"match": "[a-zA-Z_][a-zA-Z0-9_]*"
+		}
+	}
 }
